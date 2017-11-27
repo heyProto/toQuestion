@@ -6,6 +6,11 @@
     "data": {
       "id": "/properties/data",
       "properties": {
+        "company": {
+          "id": "/properties/data/properties/question",
+          "title": "Company",
+          "type": "string"
+        },
         "question": {
           "id": "/properties/data/properties/question",
           "title": "Question",

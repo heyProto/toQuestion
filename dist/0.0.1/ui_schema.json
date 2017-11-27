@@ -1,0 +1,13 @@
+{
+    "data": {
+        "score" : {
+            "ui:widget": "updown"
+        },
+        "total": {
+            "ui:widget": "updown"
+        },
+        "description": {
+            "ui:widget": "textarea"
+        }
+    }
+}

@@ -12,7 +12,8 @@ export default class toQuestion extends React.Component {
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined,
-      languageTexts: undefined
+      languageTexts: undefined,
+      readMore: false
     };
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
@@ -46,7 +47,16 @@ export default class toQuestion extends React.Component {
             optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
+    } else {
+      this.componentDidUpdate();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      readMore: false
+    });
+    this.componentDidUpdate();
   }
 
   componentDidUpdate() {
@@ -63,12 +73,14 @@ export default class toQuestion extends React.Component {
       el.innerHTML = `${wordArray.join(' ')}... <br><button id="read-more-button" class="protograph-read-more">Keep reading</button>`;
     }
     if (document.getElementById('read-more-button') !== null) {
-      document.getElementById('read-more-button').addEventListener('click', function () {
-        document.getElementById('read-more-button').style.display = 'none'
+      document.getElementById('read-more-button').addEventListener('click', (e) => {
+        document.getElementById('read-more-button').style.display = 'none';
         document.querySelector('.protograph-toQuestion-description').style.maxHeight = 'none';
         document.querySelector('.protograph-toQuestion-description').style.marginBottom = '10px';
         document.querySelector('.protograph-toQuestion-description').innerHTML = data.description;
-        console.log(props, typeof props.clickCallback === 'function', ";;;;;;")
+        this.setState({
+          readMore: true
+        });
         if (typeof props.clickCallback === 'function') {
           props.clickCallback();
         }
@@ -81,6 +93,7 @@ export default class toQuestion extends React.Component {
       return(<div>Loading</div>)
     } else {
       let data = this.state.dataJSON.data;
+      let max_height = !this.state.readMore ? { maxHeight: "100px" } : { maxHeight: "none" }
       return (
         <div id="protograph_div" className="protograph-laptop-mode">
           <div className="protograph-card">
@@ -93,7 +106,7 @@ export default class toQuestion extends React.Component {
               </div>
             </div>
             <div className="protograph-toQuestion-description-container">
-              <p className="protograph-toQuestion-description">{data.description}</p>
+              <p className="protograph-toQuestion-description" style={max_height}>{data.description}</p>
             </div>
           </div>
         </div>
@@ -107,6 +120,8 @@ export default class toQuestion extends React.Component {
       return(<div>Loading</div>)
     } else {
       let data = this.state.dataJSON.data;
+      let max_height = !this.state.readMore ? { maxHeight: "100px" } : { maxHeight: "none" }
+
       return (
         <div id="protograph_div" className="protograph-mobile-mode">
           <div className="protograph-card">
@@ -119,7 +134,7 @@ export default class toQuestion extends React.Component {
               </div>
             </div>
             <div className="protograph-toQuestion-description-container">
-              <p className="protograph-toQuestion-description">{data.description}</p>
+              <p className="protograph-toQuestion-description" style={max_height}>{data.description}</p>
             </div>
           </div>
         </div>

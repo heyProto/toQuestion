@@ -9,10 +9,7 @@ export default class EditExplainerCard extends React.Component {
     super(props)
     this.state = {
       step: 1,
-      dataJSON: {
-        card_data: {},
-        configs: {}
-      },
+      dataJSON: {},
       mode: "laptop",
       publishing: false,
       schemaJSON: undefined,
@@ -31,26 +28,28 @@ export default class EditExplainerCard extends React.Component {
       optionalConfigJSON: this.state.dataJSON.configs,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    getDataObj["name"] = getDataObj.dataJSON.data.district.substr(0,225); // Reduces the name to ensure the slug does not get too long
+    getDataObj["name"] = getDataObj.dataJSON.data.company.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    //console.log(axios.get(this.props.dataURL));
     if (this.state.fetchingData){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          //console.log(card.data);
+      axios.all([
+        axios.get(this.props.dataURL),
+        axios.get(this.props.schemaURL),
+        axios.get(this.props.optionalConfigURL),
+        axios.get(this.props.optionalConfigSchemaURL),
+        axios.get(this.props.uiSchemaURL)
+      ]).then(
+        axios.spread((card, schema, opt_config, opt_config_schema, uiSchema) => {
           this.setState({
             fetchingData: false,
-            dataJSON: {
-              card_data: card.data,
-              configs: opt_config.data
-            },
+            dataJSON: card.data,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data
+            optionalConfigSchemaJSON: opt_config_schema.data,
+            uiSchemaJSON: uiSchema.data
           });
         }));
     }
@@ -61,19 +60,9 @@ export default class EditExplainerCard extends React.Component {
       case 1:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data = formData
+          dataJSON.data = formData
           return {
             dataJSON: dataJSON
-          }
-        })
-        break;
-      case 2:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.configs = formData
-          return {
-            dataJSON: dataJSON
-            // optionalConfigJSON: dataJSON
           }
         })
         break;
@@ -83,11 +72,6 @@ export default class EditExplainerCard extends React.Component {
   onSubmitHandler({formData}) {
     switch(this.state.step) {
       case 1:
-        this.setState({
-          step: 2
-        });
-        break;
-      case 2:
         if (typeof this.props.onPublishCallback === "function") {
           this.setState({ publishing: true });
           let publishCallback = this.props.onPublishCallback();
@@ -100,19 +84,24 @@ export default class EditExplainerCard extends React.Component {
   }
 
   renderSEO() {
-    let data = this.state.dataJSON.card_data.data;
-    let blockquote_string = `<h3>${data.district}</h3><p>District information:${data.description}</p>`;
+    let data = this.state.dataJSON.data;
+    let blockquote_string = `<h3>${data.company}</h3><p>${data.question}</p><p>${data.score}/${data.total}</p><p>${data.description}</p>`;
     let seo_blockquote = '<blockquote>' + blockquote_string + '</blockquote>'
     return seo_blockquote;
+  }
+
+  getUISchemaJSON() {
+    switch(this.state.step) {
+      case 1:
+        return this.state.uiSchemaJSON.data;
+        break;
+    }
   }
 
   renderSchemaJSON() {
     switch(this.state.step){
       case 1:
-        return this.state.schemaJSON;
-        break;
-      case 2:
-        return this.state.optionalConfigSchemaJSON;
+        return this.state.schemaJSON.properties.data;
         break;
     }
   }
@@ -120,31 +109,18 @@ export default class EditExplainerCard extends React.Component {
   renderFormData() {
     switch(this.state.step) {
       case 1:
-        return this.state.dataJSON.card_data;
-        break;
-      case 2:
-        return this.state.dataJSON.configs;
+        return this.state.dataJSON.data;
         break;
     }
   }
 
   showLinkText() {
-    switch(this.state.step) {
-      case 1:
-        return '';
-        break;
-      case 2:
-        return '< Back';
-        break;
-    }
+    return '';
   }
 
   showButtonText() {
     switch(this.state.step) {
       case 1:
-        return 'Next';
-        break;
-      case 2:
         return 'Publish';
         break;
     }
@@ -175,8 +151,7 @@ export default class EditExplainerCard extends React.Component {
   }
 
   render() {
-
-    console.log("final", this.state.dataJSON.card_data);
+    let style = this.state.mode === 'laptop' ? { width: 640, margin: '0 auto' } : { width: 320, margin: '0 auto' };
     if (this.state.fetchingData) {
       return(<div>Loading</div>)
     } else {
@@ -194,7 +169,9 @@ export default class EditExplainerCard extends React.Component {
                 <JSONSchemaForm schema={this.renderSchemaJSON()}
                   onSubmit={((e) => this.onSubmitHandler(e))}
                   onChange={((e) => this.onChangeHandler(e))}
-                  formData={this.renderFormData()}>
+                  formData={this.renderFormData()}
+                  uiSchema={this.getUISchemaJSON()}
+                >
                   <a id="protograph-prev-link" className={`${this.state.publishing ? 'protograph-disable' : ''}`} onClick={((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
                   <button type="submit" className={`${this.state.publishing ? 'ui primary loading disabled button' : ''} default-button protograph-primary-button`}>{this.showButtonText()}</button>
                 </JSONSchemaForm>
@@ -216,13 +193,15 @@ export default class EditExplainerCard extends React.Component {
                     </a>
                   </div>
                 </div>
-                <Card
-                  mode={this.state.mode}
-                  dataJSON={this.state.dataJSON}
-                  schemaJSON={this.state.schemaJSON}
-                  optionalConfigJSON={this.state.optionalConfigJSON}
-                  optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
-                />
+                <div style={style}>
+                  <Card
+                    mode={this.state.mode}
+                    dataJSON={this.state.dataJSON}
+                    schemaJSON={this.state.schemaJSON}
+                    optionalConfigJSON={this.state.optionalConfigJSON}
+                    optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
+                  />
+                </div>
               </div>
             </div>
           </div>
