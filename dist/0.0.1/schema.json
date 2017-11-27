@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "data": {
+      "id": "/properties/data",
+      "properties": {
+        "question": {
+          "id": "/properties/data/properties/question",
+          "title": "Question",
+          "type": "string"
+        },
+        "score": {
+          "id": "/properties/data/properties/score",
+          "title": "Score",
+          "type": "integer"
+        },
+        "total": {
+          "id": "/properties/data/properties/total",
+          "title": "Total",
+          "type": "integer"
+        },
+         "description": {
+          "id": "/properties/data/properties/description",
+          "title": "Description",
+          "type": "string"
+         }
+      },
+      "type": "object",
+      "required": ["question", "rating", "total", "description"]
+    }
+  },
+  "type": "object"
+}
