@@ -52,7 +52,7 @@ export default class toQuestion extends React.Component {
   }
 
   prevCard() {
-    
+
   }
 
   renderLaptop() {
@@ -71,8 +71,8 @@ export default class toQuestion extends React.Component {
                     <p className="protograph-toQuestion-description">{data.description}</p>
                   </div>
                 </div>
-                <div className="nine wide column">
-                  <div className="protograph-toQuestion-sub-questions">
+                <div className="nine wide column sub-question-cards-container">
+                  <div className="protograph-toQuestion-sub-questions" style={{ width: (320 * data.subQuestions.length) + (10 * data.subQuestions.length) }}>
                     {
                       data.subQuestions.map((i, index) => {
                         return (

@@ -56,6 +56,8 @@
   width: 320px;
   display: inline-block;
   position: relative;
+  margin-right: 10px;
+  float: left;
 }
 .protograph-toQuestion-sub-question-question {
   padding: 25px 20px 25px 20px;
@@ -85,4 +87,7 @@
   position: absolute;
   bottom: 20px;
   width: inherit;
+}
+.sub-question-cards-container {
+  overflow-x: auto;
 }
