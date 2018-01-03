@@ -48,46 +48,13 @@ export default class toQuestion extends React.Component {
           });
         }));
     } else {
-      //this.componentDidUpdate();
     }
   }
 
-  /* componentWillReceiveProps(nextProps) {
-   *   this.setState({
-   *     readMore: true
-   *   });
-   *   this.componentDidUpdate();
-   * }
-   */
-  /* componentDidUpdate() {
-   *   this.multiLineTruncate(document.querySelector('.protograph-toQuestion-description'));
-   * }
+  togglePrevNext() {
+    
+  }
 
-   * multiLineTruncate(el) {
-   *   let data = this.state.dataJSON.data,
-   *       wordArray = data.description.split(' '),
-   *       props = this.props;
-
-   *   while (el.scrollHeight > el.offsetHeight) {
-   *     wordArray.pop();
-   *     el.innerHTML = `${wordArray.join(' ')}... <br><button id="read-more-button" class="protograph-read-more">Keep reading</button>`;
-   *   }
-   *   if (document.getElementById('read-more-button') !== null) {
-   *     document.getElementById('read-more-button').addEventListener('click', (e) => {
-   *       document.getElementById('read-more-button').style.display = 'none';
-   *       document.querySelector('.protograph-toQuestion-description').style.maxHeight = 'none';
-   *       document.querySelector('.protograph-toQuestion-description').style.marginBottom = '10px';
-   *       document.querySelector('.protograph-toQuestion-description').innerHTML = data.description;
-   *       this.setState({
-   *         readMore: true
-   *       });
-   *       if (typeof props.clickCallback === 'function') {
-   *         props.clickCallback();
-   *       }
-   *     })
-   *   }
-   * }
-   */
   renderLaptop() {
     if (this.state.fetchingData ){
       return(<div>Loading</div>)
@@ -106,7 +73,34 @@ export default class toQuestion extends React.Component {
                 </div>
                 <div className="nine wide column">
                   <div className="protograph-toQuestion-sub-questions">
-                    {this.subQuestion(data.subQuestions[0].question, data.subQuestions[0].answer)}
+                    {
+                      data.subQuestions.map((i, index) => {
+                        console.log(i, index)
+                        console.log(index === 0, index === (data.subQuestions.length - 1))
+                        return (
+                          <div className="protograph-toQuestion-sub-question" data-card_no={index + 1}>
+                            <div className="protograph-toQuestion-sub-question-question">{i.question}</div>
+                            <div className="protograph-toQuestion-sub-question-answer">{i.answer}</div>
+                            <div className="protograph-toQuestion-sub-question-toggle-container">
+                              {
+                                (index === 0)  &&  (
+                                  <div className="protograph-toQuestion-sub-question-toggle prev" id="toQuestion_prev">
+                                    &lt;   Prev
+                                  </div>
+                                )
+                              }
+                              {
+                                (index === (data.subQuestions.length - 1)) && (
+                                  <div className="protograph-toQuestion-sub-question-toggle next" id="toQuestion_next">
+                                    Next   &gt;
+                                  </div>
+                                )
+                              }
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
                   </div>
                 </div>
               </div>
@@ -119,15 +113,15 @@ export default class toQuestion extends React.Component {
 
   subQuestion(question, answer, id) {
     return(
-      <div className="protograph-toQuestion-sub-question">
+      <div className="protograph-toQuestion-sub-question" data-card_no={id}>
         <div className="protograph-toQuestion-sub-question-question">{question}</div>
         <div className="protograph-toQuestion-sub-question-answer">{answer}</div>
         <div className="protograph-toQuestion-sub-question-toggle-container">
           <div className="protograph-toQuestion-sub-question-toggle prev">
-            &lt; Prev
+      &lt;   Prev
           </div>
           <div className="protograph-toQuestion-sub-question-toggle next">
-            Next &gt;
+            Next   &gt;
           </div>
         </div>
       </div>
