@@ -26,13 +26,16 @@
   cursor: pointer;
 }
 .protograph-toQuestion-description {
-  max-height: 100px;
+  color: #909090;
 }
 .protograph-toQuestion-description-container {
   border-top: 1px solid #f1f1f1;
 }
-.protograph-toQuestion-description-container, .protograph-toQuestion-question-container {
+.protograph-toQuestion-description-container {
   padding: 10px 20px;
+}
+.protograph-toQuestion-question-container {
+  padding-top: 10px !important;
 }
 .protograph-toQuestion-score {
   font-size: 36px;
@@ -43,4 +46,39 @@
 .protograph-toQuestion-slash {
   color: #f1f1f1;
   padding: 0px 3px;
+}
+.protograph-toQuestion-sub-questions {
+  height: 100%;
+}
+.protograph-toQuestion-sub-question {
+  background-color: #f1f1f1;
+  height: 100%;
+  width: 320px;
+}
+.protograph-toQuestion-sub-question-question {
+  padding: 20px 10px 20px 10px;
+  color: #909090;
+}
+.protograph-toQuestion-sub-question-answer {
+  padding: 20px 10px 20px 10px;
+  font-weight: bold;
+}
+.protograph-toQuestion-sub-question-toggle {
+  background-color: #35a8c7;
+  color: #ffffff;
+  font-weight: bold;
+  display: inline-block;
+  padding: 10px 35px 10px 35px;
+  margin: 20px;
+}
+.next {
+  float: right;
+}
+.prev {
+  float: left;
+}
+.protograph-toQuestion-sub-question-toggle-container {
+  position: absolute;
+  bottom: 20px;
+  width: inherit;
 }
