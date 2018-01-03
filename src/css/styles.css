@@ -55,7 +55,7 @@
   height: 100%;
   width: 320px;
   display: inline-block;
-  float: left;
+  position: relative;
 }
 .protograph-toQuestion-sub-question-question {
   padding: 25px 20px 25px 20px;
@@ -67,7 +67,7 @@
   font-weight: bold;
 }
 .protograph-toQuestion-sub-question-toggle {
-  background-color: #35a8c7;
+  background-color: #1c728a;
   color: #ffffff;
   font-weight: bold;
   display: inline-block;

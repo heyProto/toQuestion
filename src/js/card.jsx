@@ -51,7 +51,7 @@ export default class toQuestion extends React.Component {
     }
   }
 
-  togglePrevNext() {
+  prevCard() {
     
   }
 
@@ -75,22 +75,20 @@ export default class toQuestion extends React.Component {
                   <div className="protograph-toQuestion-sub-questions">
                     {
                       data.subQuestions.map((i, index) => {
-                        console.log(i, index)
-                        console.log(index === 0, index === (data.subQuestions.length - 1))
                         return (
                           <div className="protograph-toQuestion-sub-question" data-card_no={index + 1}>
                             <div className="protograph-toQuestion-sub-question-question">{i.question}</div>
                             <div className="protograph-toQuestion-sub-question-answer">{i.answer}</div>
                             <div className="protograph-toQuestion-sub-question-toggle-container">
                               {
-                                (index === 0)  &&  (
+                                (index !== 0)  &&  (
                                   <div className="protograph-toQuestion-sub-question-toggle prev" id="toQuestion_prev">
                                     &lt;   Prev
                                   </div>
                                 )
                               }
                               {
-                                (index === (data.subQuestions.length - 1)) && (
+                                (index !== (data.subQuestions.length - 1)) && (
                                   <div className="protograph-toQuestion-sub-question-toggle next" id="toQuestion_next">
                                     Next   &gt;
                                   </div>
