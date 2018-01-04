@@ -52,7 +52,20 @@ export default class toQuestion extends React.Component {
   }
 
   prevCard() {
+    console.log(event.target);
+    this.state.card_no = parseInt(event.target.closest(".protograph-toQuestion-sub-question").getAttribute("data-card_no"));
+    console.log(this.state.card_no);
+    let prev_card = document.querySelector(`.protograph-toQuestion-sub-question[data-card_no="${this.state.card_no - 1}"]`);
+    let container = event.target.closest(".sub-question-cards-container");
+    container.scrollLeft -= prev_card.getBoundingClientRect().width + 10;
+  }
 
+  nextCard() {
+    this.state.card_no = parseInt(event.target.closest(".protograph-toQuestion-sub-question").getAttribute("data-card_no"));
+    let next_card = document.querySelector(`.protograph-toQuestion-sub-question[data-card_no="${this.state.card_no + 1}"]`);
+    console.log(next_card);
+    let container = event.target.closest(".sub-question-cards-container");
+    container.scrollLeft += next_card.getBoundingClientRect().width + 10;
   }
 
   renderLaptop() {
@@ -82,14 +95,14 @@ export default class toQuestion extends React.Component {
                             <div className="protograph-toQuestion-sub-question-toggle-container">
                               {
                                 (index !== 0)  &&  (
-                                  <div className="protograph-toQuestion-sub-question-toggle prev" id="toQuestion_prev">
+                                  <div className="protograph-toQuestion-sub-question-toggle prev" id="toQuestion_prev" onClick={() => {this.prevCard()}}>
                                     &lt;   Prev
                                   </div>
                                 )
                               }
                               {
                                 (index !== (data.subQuestions.length - 1)) && (
-                                  <div className="protograph-toQuestion-sub-question-toggle next" id="toQuestion_next">
+                                  <div className="protograph-toQuestion-sub-question-toggle next" id="toQuestion_next" onClick={() => {this.nextCard()}}>
                                     Next   &gt;
                                   </div>
                                 )
@@ -107,23 +120,6 @@ export default class toQuestion extends React.Component {
         </div>
       )
     }
-  }
-
-  subQuestion(question, answer, id) {
-    return(
-      <div className="protograph-toQuestion-sub-question" data-card_no={id}>
-        <div className="protograph-toQuestion-sub-question-question">{question}</div>
-        <div className="protograph-toQuestion-sub-question-answer">{answer}</div>
-        <div className="protograph-toQuestion-sub-question-toggle-container">
-          <div className="protograph-toQuestion-sub-question-toggle prev">
-      &lt;   Prev
-          </div>
-          <div className="protograph-toQuestion-sub-question-toggle next">
-            Next   &gt;
-          </div>
-        </div>
-      </div>
-    )
   }
 
   renderMobile() {

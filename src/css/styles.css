@@ -89,5 +89,6 @@
   width: inherit;
 }
 .sub-question-cards-container {
-  overflow-x: auto;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
