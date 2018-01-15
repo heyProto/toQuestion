@@ -52,9 +52,7 @@ export default class toQuestion extends React.Component {
   }
 
   prevCard() {
-    console.log(event.target);
     this.state.card_no = parseInt(event.target.closest(".protograph-toQuestion-sub-question").getAttribute("data-card_no"));
-    console.log(this.state.card_no);
     let prev_card = document.querySelector(`.protograph-toQuestion-sub-question[data-card_no="${this.state.card_no - 1}"]`);
     let container = event.target.closest(".sub-question-cards-container");
     container.scrollLeft -= prev_card.getBoundingClientRect().width + 10;
@@ -63,12 +61,11 @@ export default class toQuestion extends React.Component {
   nextCard() {
     this.state.card_no = parseInt(event.target.closest(".protograph-toQuestion-sub-question").getAttribute("data-card_no"));
     let next_card = document.querySelector(`.protograph-toQuestion-sub-question[data-card_no="${this.state.card_no + 1}"]`);
-    console.log(next_card);
     let container = event.target.closest(".sub-question-cards-container");
     container.scrollLeft += next_card.getBoundingClientRect().width + 10;
   }
 
-  renderLaptop() {
+  renderCol7() {
     if (this.state.fetchingData ){
       return(<div>Loading</div>)
     } else {
@@ -122,49 +119,29 @@ export default class toQuestion extends React.Component {
     }
   }
 
-  renderMobile() {
-    if ( this.state.fetchingData ){
-      return(<div>Loading</div>)
-    } else {
-      let data = this.state.dataJSON.data;
-
-      return (
-        <div id="protograph_div" className="protograph-mobile-mode">
-          <div className="protograph-card">
-            <div className="protograph-toQuestion-question-container">
-              <h3 className="ui header protograph-toQuestion-question">{data.question}</h3>
-              <div>
-                <span className="protograph-toQuestion-score">{data.score}</span>
-                <span className="protograph-toQuestion-slash">/</span>
-                <span className="protograph-toQuestion-total">{data.total}</span>
-              </div>
-            </div>
-            <div className="protograph-toQuestion-description-container">
-              <p className="protograph-toQuestion-description" style={max_height}>{data.description}</p>
-            </div>
-          </div>
-        </div>
-      )
-    }
+  renderCol4() {
+    return (
+      <div id="protograph_div"></div>
+    )
   }
 
-  renderScreenshot() {
-    if ( this.state.fetchingData ){
-      return(<div>Loading</div>)
-    } else {
-    }
+  renderCol3() {
+    return (
+      <div id="protograph_div"></div>
+    )
   }
+
 
   render() {
     switch(this.props.mode) {
-      case 'laptop' :
-        return this.renderLaptop();
+      case 'col7' :
+        return this.renderCol7();
         break;
-      case 'mobile' :
-        return this.renderMobile();
+      case 'col4' :
+        return this.renderCol4();
         break;
-      case 'screenshot' :
-        return this.renderScreenshot();
+      case 'col3' :
+        return this.renderCol3();
         break;
     }
   }

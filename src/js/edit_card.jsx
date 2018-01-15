@@ -4,13 +4,13 @@ import axios from 'axios';
 import Card from './card.jsx';
 import JSONSchemaForm from '../../lib/js/react-jsonschema-form';
 
-export default class EditExplainerCard extends React.Component {
+export default class EditCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       step: 1,
       dataJSON: {},
-      mode: "laptop",
+      mode: "col7",
       publishing: false,
       schemaJSON: undefined,
       fetchingData: true,
@@ -23,9 +23,9 @@ export default class EditExplainerCard extends React.Component {
   exportData() {
     let getDataObj = {
       step: this.state.step,
-      dataJSON: this.state.dataJSON.card_data,
+      dataJSON: this.state.dataJSON,
       schemaJSON: this.state.schemaJSON,
-      optionalConfigJSON: this.state.dataJSON.configs,
+      optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
     getDataObj["name"] = getDataObj.dataJSON.data.company.substr(0,225); // Reduces the name to ensure the slug does not get too long
@@ -151,7 +151,7 @@ export default class EditExplainerCard extends React.Component {
   }
 
   render() {
-    let style = this.state.mode === 'laptop' ? { width: 640, margin: '0 auto' } : { width: 320, margin: '0 auto' };
+    let style = this.state.mode === 'col7' ? { width: 640, margin: '0 auto' } : { width: 320, margin: '0 auto' };
     if (this.state.fetchingData) {
       return(<div>Loading</div>)
     } else {
@@ -163,7 +163,7 @@ export default class EditExplainerCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    ToDistrictProfile
+                    ToQuestion
                   </div>
                 </div>
                 <JSONSchemaForm schema={this.renderSchemaJSON()}
@@ -179,17 +179,23 @@ export default class EditExplainerCard extends React.Component {
               <div className="twelve wide column proto-card-preview proto-share-card-div">
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
-                    <a className={`item ${this.state.mode === 'laptop' ? 'active' : ''}`}
-                      data-mode='laptop'
-                      onClick={this.toggleMode}
+                    <a className={`item ${this.state.mode === 'col7' ? "active" : ""}`}
+                       data-mode="col7"
+                       onClick={this.toggleMode}
                     >
-                      <i className="desktop icon"></i>
+                      col-7
                     </a>
-                    <a className={`item ${this.state.mode === 'mobile' ? 'active' : ''}`}
-                      data-mode='mobile'
-                      onClick={this.toggleMode}
+                    <a className={`item ${this.state.mode === "col4" ? "active" : ""}`}
+                       data-mode="col4"
+                       onClick={this.toggleMode}
                     >
-                      <i className="mobile icon"></i>
+                      col-4
+                    </a>
+                    <a className={`item ${this.state.mode === "col3" ? "active" : ""}`}
+                       data-mode="col3"
+                       onClick={this.toggleMode}
+                    >
+                      col-3
                     </a>
                   </div>
                 </div>

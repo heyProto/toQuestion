@@ -18,8 +18,8 @@ ProtoGraph.Card.toQuestion.prototype.getData = function (data) {
   return this.containerInstance.exportData();
 }
 
-ProtoGraph.Card.toQuestion.prototype.renderLaptop = function (data) {
-  this.mode = 'laptop';
+ProtoGraph.Card.toQuestion.prototype.renderCol7 = function (data) {
+  this.mode = 'col7';
   ReactDOM.render(
     <Card
       dataURL={this.options.data_url}
@@ -34,8 +34,8 @@ ProtoGraph.Card.toQuestion.prototype.renderLaptop = function (data) {
     this.options.selector);
 }
 
-ProtoGraph.Card.toQuestion.prototype.renderMobile = function (data) {
-  this.mode = 'mobile';
+ProtoGraph.Card.toQuestion.prototype.renderCol4 = function (data) {
+  this.mode = 'col4';
   ReactDOM.render(
     <Card
       dataURL={this.options.data_url}
@@ -50,8 +50,8 @@ ProtoGraph.Card.toQuestion.prototype.renderMobile = function (data) {
     this.options.selector);
 }
 
-ProtoGraph.Card.toQuestion.prototype.renderScreenshot = function (data) {
-  this.mode = 'screenshot';
+ProtoGraph.Card.toQuestion.prototype.renderCol3 = function (data) {
+  this.mode = 'col3';
   ReactDOM.render(
     <Card
       dataURL={this.options.data_url}
@@ -59,6 +59,7 @@ ProtoGraph.Card.toQuestion.prototype.renderScreenshot = function (data) {
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}
       mode={this.mode}
+      clickCallback={this.options.onClickCallback}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
       }}/>,

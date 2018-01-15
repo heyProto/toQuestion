@@ -50,7 +50,7 @@
     <div id="toQuestion-div"></div></br>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toDistrictProfile();
+    var x = new ProtoGraph.Card.toQuestion();
 
     function findGetParameter(parameterName) {
       var result = null,
@@ -91,12 +91,14 @@
 
     function renderWithMode(mode) {
       switch(mode){
-        case "laptop":
-          x.renderLaptop();
+        case "col7":
+          x.renderCol7();
           break;
-        case "mobile":
-        default:
-          x.renderMobile();
+        case "col4":
+          x.renderCol4();
+          break;
+        case "col3"
+          x.renderCol3();
           break;
       }
     }

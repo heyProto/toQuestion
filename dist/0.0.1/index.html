@@ -51,7 +51,7 @@
     <script src="https://dwln9tzsi7g07.cloudfront.net/lib/protograph-core.min.js"></script>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toDistrictProfile();
+    var x = new ProtoGraph.Card.toQuestion();
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [],
@@ -126,11 +126,14 @@
 
     function renderWithMode(mode) {
       switch(mode){
-        case "laptop":
-          x.renderLaptop();
+        case "col7":
+          x.renderCol7();
           break;
-        case "mobile":
-          x.renderMobile();
+        case "col4":
+          x.renderCol4();
+          break;
+        case "col3":
+          x.renderCol3();
           break;
       }
     }

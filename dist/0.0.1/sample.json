@@ -1,23 +1,23 @@
 {
   "data": {
     "company": "Tata Motors",
-    "question": "How is Tata Motors perfroming on Gender?",
+    "question": "How is Tata Motors performing on Gender?",
     "score": 3,
     "total": 5,
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
     "element": "Non-Discrimination",
     "subQuestions": [
       {
         "question": "Businesses have Policies that explicitly mentions Non-Discrimination, Equal Opportunity as principle in employment",
-        "answer": 0.67
+        "answer": "0.67"
       },
       {
         "question": "Policies include: non-discrimination and equal opportnities in Recruitment",
-        "answer": 1.0
+        "answer": "1.0"
       },
       {
         "question": "Are you mad or just plain stupid?",
-        "answer": "I think I'm both my good sir"
+        "answer": "Yes"
       },
       {
         "question": "Why do we fall Bruce?",
@@ -29,8 +29,20 @@
       },
       {
         "question": "How do I grow a tree?",
-        "answer": "Pee on it till it gets up like a motherfucker"
+        "answer": "Give it love and care"
       }
+    ],
+    "trend_data": [
+      [
+        {"x": 2015, "y": 1},
+        {"x": 2016, "y": 1.5},
+        {"x": 2017, "y": 2}
+      ],
+      [
+        {"x": 2015, "y": 0.5},
+        {"x": 2016, "y": 1.25},
+        {"x": 2017, "y": 1.5}
+      ]
     ]
   }
 }

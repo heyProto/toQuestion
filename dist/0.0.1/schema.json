@@ -7,7 +7,7 @@
       "id": "/properties/data",
       "properties": {
         "company": {
-          "id": "/properties/data/properties/question",
+          "id": "/properties/data/properties/company",
           "title": "Company",
           "type": "string"
         },
@@ -19,7 +19,7 @@
         "score": {
           "id": "/properties/data/properties/score",
           "title": "Score",
-          "type": "integer"
+          "type": "number"
         },
         "total": {
           "id": "/properties/data/properties/total",
@@ -30,10 +30,87 @@
           "id": "/properties/data/properties/description",
           "title": "Description",
           "type": "string"
-         }
+         },
+        "subQuestions": {
+          "id": "/properties/data/properties/subQuestions",
+          "type": "array",
+          "title": "Sub-Questions",
+          "items": {
+            "id": "/properties/data/properties/subQuestions/items",
+            "type": "object",
+            "properties": {
+              "question": {
+                "id": "/properties/data/properties/subQuestions/items/properties/question",
+                "type": "string",
+                "title": "Question",
+                "examples": [
+                  "Businesses have Policies that explicitly mentions Non-Discrimination, Equal Opportunity as principle in employment"
+                ]
+              },
+              "subQuestion": {
+                "id": "/properties/data/properties/subQuestions/items/properties/subQuestion",
+                "type": "string",
+                "title": "subQuestion",
+                "examples": [
+                  "Businesses have Policies that explicitly mentions Non-Discrimination, Equal Opportunity as principle in employment"
+                ]
+              },
+              "parentType": {
+                "id": "/properties/data/properties/subQuestions/items/properties/parentType",
+                "type": "string",
+                "title": "Parent Type",
+                "enum": [
+                  "RefResult", "RefCategory"
+                ]
+              },
+              "answer": {
+                "id": "/properties/data/properties/subQuestions/items/properties/answer",
+                "type": "string",
+                "title": "Answer",
+                "default": 0,
+                "examples": [
+                  0.6700000166893005
+                ]
+              }
+            }
+          }
+        },
+        "trend_data": {
+          "id": "/properties/trend_data",
+          "title": "Score Trend",
+          "type": "array",
+          "items": {
+            "id": "/properties/trend_data/items",
+            "type": "array",
+            "items": {
+              "id": "/properties/trend_data/items/items",
+              "type": "object",
+              "properties": {
+                "x": {
+                  "id": "/properties/trend_data/items/items/properties/x",
+                  "type": "integer",
+                  "title": "Score year",
+                  "default": 0,
+                  "examples": [
+                    2015
+                  ]
+                },
+                "y": {
+                  "id": "/properties/trend_data/items/items/properties/y",
+                  "type": "number",
+                  "title": "Score value",
+                  "default": 0,
+                  "examples": [
+                    1
+                  ]
+                }
+              }
+            }
+          }
+        }
       },
       "type": "object",
-      "required": ["question", "rating", "total", "description"]
+      "required": ["company", "question", "score", "total", "description", "element", "subQuestions"]
     }
   },
   "type": "object"
