@@ -110,7 +110,7 @@
         }
       },
       "type": "object",
-      "required": ["company", "question", "score", "total", "description", "element", "subQuestions"]
+      "required": ["company", "question", "score", "total", "description", "element", "subQuestions", "trend_array"]
     }
   },
   "type": "object"
