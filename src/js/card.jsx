@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip } from 'victory';
 
 export default class toQuestion extends React.Component {
 
@@ -82,6 +83,7 @@ export default class toQuestion extends React.Component {
                   </div>
                 </div>
                 <div className="nine wide column sub-question-cards-container">
+                  { this.renderChartCard() }
                   <div className="protograph-toQuestion-sub-questions" style={{ width: (320 * data.subQuestions.length) + (10 * data.subQuestions.length) }}>
                     {
                       data.subQuestions.map((i, index) => {
@@ -117,6 +119,67 @@ export default class toQuestion extends React.Component {
         </div>
       )
     }
+  }
+
+  renderChartCard() {
+    let data = this.state.dataJSON.data;
+    return (
+      <div className="protograph-toQuestion-sub-questions">
+        <div className="protograph-toQuestion-sub-question">
+          <div className="protograph-toQuestion-sub-question-question">{data.element}</div>
+          <div className="protograph-toQuestion-sub-question-answer">{data.score}</div>
+          <div className="protograph-toQuestion-sub-question-chart">
+            <VictoryChart height={200} width={320}
+              domainPadding={{ y: 0 }}
+              containerComponent={
+                <VictoryVoronoiContainer
+                  voronoiDimension="x"
+                  labels={(d) => `y: ${d.y}`}
+                  labelComponent={
+                    <VictoryTooltip
+                      cornerRadius={0}
+                      flyoutStyle={{ fill: "white" }}
+                    />}
+                />}
+            >
+              {/* Score Line */}
+              <VictoryLine
+                data={[
+                  { x: 2015, y: 1 },
+                  { x: 2016, y: 1.5 },
+                  { x: 2017, y: 2 }
+                ]}
+                style={{
+                  data: {
+                    stroke: "tomato",
+                    strokeWidth: (d, active) => { return active ? 4 : 2; }
+                  },
+                  labels: { fill: "tomato" }
+                }}
+              />
+              {/* Average Line */}
+              <VictoryLine
+                data={[
+                  { x: 2015, y: 3 },
+                  { x: 2016, y: 1.4 },
+                  { x: 2017, y: 3 }
+                ]}
+                style={{
+                  data: {
+                    stroke: "blue",
+                    strokeWidth: (d, active) => { return active ? 4 : 2; }
+                  },
+                  labels: { fill: "blue" }
+                }}
+              />
+            </VictoryChart>
+          </div>
+          <div className="protograph-toQuestion-sub-question-toggle-container">
+            <div className="protograph-toQuestion-sub-question-toggle prev">Read More</div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   renderCol4() {
